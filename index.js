@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express(); 
 const port = 3000; 
+const authRoutes = require("./routes/auth"); 
+const wordRoutes = require("./routes/words");
 
 require("dotenv").config();
 
@@ -18,9 +20,12 @@ const firebaseConfig = {
 
 const fbApp = initializeApp(firebaseConfig);
 
+app.use("/auth", authRoutes); 
+app.use("/words", wordRoutes);
+
 app.get("/", (req, res) => {
-    res.send("tetestest");
-});
+    res.send("typereicer");
+}); 
   
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
