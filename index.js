@@ -1,13 +1,7 @@
-const express = require("express");
-const app = express(); 
-const port = 3000; 
-const authRoutes = require("./routes/auth"); 
-const wordRoutes = require("./routes/words");
-
 require("dotenv").config();
 
+//firebase
 const { initializeApp } = require("firebase/app");
-
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -17,16 +11,33 @@ const firebaseConfig = {
     appId: process.env.FIREBASE_APP_ID,
     measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
-
 const fbApp = initializeApp(firebaseConfig);
 
-app.use("/auth", authRoutes); 
-app.use("/words", wordRoutes);
+//express init
+const express = require("express");
+const expApp = express(); 
+const port = 4000; 
 
-app.get("/", (req, res) => {
+//middleware
+const cors = require("cors");
+const bodyParser = require("body-parser"); 
+expApp.use(cors({
+    origin: "http://localhost:3000",
+    methods: "GET, POST",
+    allowedHeaqers: "Content-Type"
+}));
+expApp.use(bodyParser.json());
+
+//routes
+const authRoutes = require("./routes/auth"); 
+const wordRoutes = require("./routes/words");
+expApp.use("/auth", authRoutes); 
+expApp.use("/words", wordRoutes);
+
+expApp.get("/", (req, res) => {
     res.send("typereicer");
 }); 
   
-app.listen(port, () => {
+expApp.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
