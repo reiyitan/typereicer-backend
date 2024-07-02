@@ -1,8 +1,5 @@
 require("dotenv").config();
 
-//firebase
-require("./fbApp"); 
-
 //express init
 const express = require("express");
 const expApp = express(); 
