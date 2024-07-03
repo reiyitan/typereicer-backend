@@ -9,7 +9,7 @@ router.post("/verify", (req, res) => {
         return res.status(200).json({verified: true, uid: decodedToken.uid});
     })
     .catch(error => {
-        return res.status(200).json({verified: false});
+        return res.status(200).json({verified: false, reason: error.code});
     });
 }); 
 
