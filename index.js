@@ -18,7 +18,7 @@ expApp.use(bodyParser.json());
 //routes
 const authRoutes = require("./routes/auth"); 
 const wordRoutes = require("./routes/words");
-expApp.use("/auth", authRoutes); 
+//expApp.use("/auth", authRoutes); 
 expApp.use("/words", wordRoutes);
 
 expApp.get("/", (req, res) => {
